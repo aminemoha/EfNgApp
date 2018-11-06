@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using EfNgApp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EfNgApp.Controllers
+{
+    public class EmployeeController : Controller
+    {
+        EmployeeDataAccessLayer objemployee = new EmployeeDataAccessLayer();
+        [HttpGet]
+        [Route("api/Employee/Index")]
+        public IEnumerable<TblEmployee> Get()
+        {
+            return objemployee.GetAllEmployee();
+        }
+        [HttpPost]
+        [Route("api/Employee/Create")]
+        public int Create([FromBody] TblEmployee employee)
+        {
+            return objemployee.AddEmployee(employee);
+        }
+        [HttpGet]
+        [Route("api/Employee/Details/{id}")]
+        public TblEmployee Details(int id)
+        {
+            return objemployee.GetEmployeeData(id);
+        }
+        [HttpPut]
+        [Route("api/Employee/Edit")]
+        public int Edit([FromBody] TblEmployee employee)
+        {
+            return objemployee.UpdateEmployee(employee);
+        }
+        [HttpDelete]
+        [Route("api/Employee/Delete/{id}")]
+        public int Delete(int id)
+        {
+            return objemployee.DeleteEmployee(id);
+        }
+        [HttpGet]
+        [Route("api/Employee/GetCityList")]
+        public IEnumerable<TblCities> Details()
+        {
+            return objemployee.GetCities();
+        }
+    }
+}
